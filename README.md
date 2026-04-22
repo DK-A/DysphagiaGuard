@@ -1,41 +1,158 @@
 # DysphagiaGuard
 
-DysphagiaGuard is an offline-first wearable system that detects safe/unsafe swallowing events using an ESP32 hardware device with sensors, connected locally to this Jetpack Compose Android app.
+![Platform](https://img.shields.io/badge/Platform-ESP32-blue)
+![Android](https://img.shields.io/badge/Android-API%2024%2B-green)
+![Language](https://img.shields.io/badge/Language-Kotlin%20%7C%20C%2B%2B-orange)
+![Architecture](https://img.shields.io/badge/Architecture-Offline--First-critical)
+![Status](https://img.shields.io/badge/Status-Prototype-informational)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-## Hardware Components (ESP32)
-- **ESP32 DevKit V1** (Microcontroller & WiFi AP)
-- **MPU6050** (IMU - Laryngeal vibration)
-- **MAX9814** (Microphone - Acoustic swallow sound)
-- **ERM Vibration Motor** (Silent mode alerts)
-- **Buzzer & LEDs** (Day mode alerts)
+DysphagiaGuard is an offline-first wearable healthcare system designed to detect safe and unsafe swallowing events in real time. It integrates an ESP32-based embedded system with a Jetpack Compose Android application, enabling reliable monitoring without internet dependency.
+
+---
+
+## Features
+
+- Real-time swallow detection using sensor fusion (IMU + acoustic)
+- Offline-first communication via ESP32 WiFi Access Point
+- Android application built with Jetpack Compose
+- Dual alert system:
+  - Silent mode → vibration motor
+  - Day mode → buzzer and LEDs
+- Session tracking and PDF report generation
+- Edge processing with no cloud dependency
+
+---
+
+## System Architecture
+
+![System Architecture](docs/architecture.png)
+
+---
+
+## Tech Stack
+
+### Embedded System
+- ESP32 (DevKit V1)
+- PlatformIO
+- C/C++
+- I2C communication (MPU6050)
+- ADC signal processing (MAX9814)
+
+### Mobile Application
+- Kotlin
+- Jetpack Compose
+- Android SDK (API 24+)
+- WebSocket (local communication)
+
+### Communication
+- WiFi Access Point (ESP32)
+- Local WebSocket protocol
+- Offline-first architecture
+
+---
+
+## Hardware Components
+
+| Component              | Purpose                                  |
+|----------------------|------------------------------------------|
+| ESP32 DevKit V1      | Microcontroller + WiFi AP                |
+| MPU6050              | Laryngeal vibration sensing (IMU)       |
+| MAX9814              | Acoustic swallow detection              |
+| ERM Vibration Motor  | Silent alerts                           |
+| Buzzer               | Audible alerts                          |
+| LEDs (Green & Red)   | Visual indication                       |
+
+---
 
 ## Wiring Diagram
-- `MPU6050 SDA` -> `GPIO 21`
-- `MPU6050 SCL` -> `GPIO 22`
-- `MAX9814 OUT` -> `GPIO 34` (ADC)
-- `Buzzer` -> `GPIO 25`
-- `ERM Vibration Motor` -> `GPIO 26`
-- `Green LED` -> `GPIO 27`
-- `Red LED` -> `GPIO 14`
 
-## Setup & Build Steps
+| Component        | ESP32 Pin |
+|-----------------|----------|
+| MPU6050 SDA     | GPIO 21  |
+| MPU6050 SCL     | GPIO 22  |
+| MAX9814 OUT     | GPIO 34  |
+| Buzzer          | GPIO 25  |
+| Vibration Motor | GPIO 26  |
+| Green LED       | GPIO 27  |
+| Red LED         | GPIO 14  |
+
+---
+
+## Setup and Installation
 
 ### ESP32 Firmware
-1. Open the `firmware/` folder in Visual Studio Code with PlatformIO installed.
-2. PlatformIO will automatically install dependencies based on `platformio.ini`.
-3. Connect your ESP32 to your computer via USB.
-4. Build and Upload the firmware using PlatformIO.
+
+1. Open `firmware/` in Visual Studio Code (PlatformIO)  
+2. Install dependencies via `platformio.ini`  
+3. Connect ESP32 via USB  
+4. Build and upload firmware  
 
 ### Android Application
-1. Open the `android/` directory in Android Studio.
-2. Sync Project with Gradle Files.
-3. Build the APK via `Build > Build Bundle(s) / APK(s) > Build APK(s)`.
-4. Sideload the generated APK onto any Android 7.0+ device (API 24+).
+
+1. Open `android/` in Android Studio  
+2. Sync Gradle  
+3. Build APK  
+4. Install on Android device (API 24+)  
+
+---
 
 ## Running the Demo
-1. Power on the ESP32 device. It will start a WiFi Hotspot named **DysphagiaGuard-AP**.
-2. Launch the Android app.
-3. The app will attempt to connect to the ESP32 hotspot automatically. If it fails, follow the prompt to connect via WiFi settings.
-4. Enter Patient Setup details and start monitoring.
-5. Provide a physical "unsafe" signal to the device sensors to trigger an alert. The app will vibrate, update the screen, and track the event.
-6. End the session to generate and share the PDF report.
+
+1. Power on ESP32  
+2. Connect to WiFi: **DysphagiaGuard-AP**  
+3. Launch the Android app  
+4. Enter patient details  
+5. Start monitoring  
+
+Trigger an unsafe swallow event:
+- App vibrates  
+- Alert is displayed  
+- Event is logged  
+
+6. End session to generate and share PDF report  
+
+---
+
+## Use Cases
+
+- Dysphagia patient monitoring  
+- Elderly care systems  
+- Clinical swallow assessment  
+- Assistive wearable healthcare  
+
+---
+
+## Future Enhancements
+
+- TinyML-based classification on device  
+- Optional cloud integration  
+- Caregiver alert system  
+- Improved noise and motion filtering  
+- Wearable miniaturization  
+
+---
+
+## Authors
+
+### Team TECHTONICS
+
+- Dhamarai Kannan A  
+- Akshaya Sreleka P S  
+- Ashwinkumar K  
+- Dharshan S  
+
+Electronics and Communication Engineering (ECE)  
+Chennai Institute of Technology, Chennai  
+
+---
+
+## Contributing
+
+Contributions, issues, and feature requests are welcome.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
